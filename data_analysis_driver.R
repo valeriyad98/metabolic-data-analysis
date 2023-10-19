@@ -29,5 +29,9 @@ if(!file.exists(file_name)){
 }
 
 # file name exists and input was given, can proceed to call the functions
-# read data from the file provided and save the data as data_table
-data_table <- read.csv(file_name)
+# read data from the file provided and save the data as met_data_table
+met_data_table <- read.csv(file_name)
+
+# example
+met_data_table <- read.csv("data_files/plasma.hormones.csv")
+normality_table <- rec.sw.test(met_data_table, c("time", "analyte", "treatment"), "fold.change")
