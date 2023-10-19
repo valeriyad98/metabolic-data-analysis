@@ -35,7 +35,7 @@ rec.sw.test <- function(data_table, parmtrs, norm_vector_name, p.value = 0.05){
     # p.value indicates the probability threshold for assigning normality to a given distribution
     
     # Checks if given colnames in parmtrs and norm_vector_name are in the data_table
-    if(sum(c(parmtrs, norm_vector_name) %in% colnames(data_table)) > length(parmtrs)){
+    if(sum(c(parmtrs, norm_vector_name) %in% colnames(data_table)) <= length(parmtrs)){
         stop("Column names given are not in the data table.")
     }
     
