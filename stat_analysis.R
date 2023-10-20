@@ -24,6 +24,22 @@ normality.sw <- function(norm_vector, p.value = 0.05){
     return(c(sw.test$p.value, sw.test$statistic, normal.dist))
 }
 
+anova.test <- function(test_vector, value_groups, lin.m = test_vector ~ value_groups){
+    # Uses test_vector containing data split according to value_groups for analysis of variance (ANOVA)
+    # test_vector: vector of values
+    # value_groups: vector of corresponding group assignments for test_vector values
+    # lin.m: linear model for anova computation for optional addition of other parameters
+    # i.e. test_vector = c(1,2,1,1) and value_groups = c('a', 'a', 'b', 'b')
+    
+    # Checks that number of groups is enough for ANOVA and test_vector matches the length of value_groups
+    if(length(unique(value_groups) < 3) | length(test_vector) != length(value_groups)){
+        stop("ANOVA testing requires three or more groups for comparison and data vector must be of the same length as group allocation vector.")
+    }
+
+    # Return anova test results
+    return(summary(aov(lin.m)))
+}
+
 rec.sw.test <- function(data_table, parmtrs, norm_vector_name, p.value = 0.05){
     # Uses data_table as input for analysis, stratifying based on the unique values in
     # each column specified in parmtrs. norm_vector_name indicates the column of values
