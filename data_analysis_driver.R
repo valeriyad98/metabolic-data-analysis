@@ -35,3 +35,9 @@ met_data_table <- read.csv(file_name)
 # example
 met_data_table <- read.csv("data_files/plasma.hormones.csv")
 normality_table <- rec.sw.test(met_data_table, c("time", "analyte", "treatment"), "fold.change")
+stat_table <- automated.stat.test(met_data_table, c("time", "analyte"), "fold.change", "treatment")
+
+# example of linear model for plasma metabolite differences over time in corticosterone
+cort_table <- met_data_table[met_data_table$analyte == "Corticosterone",]
+# another functionality of anova.test allows for a complex linear model present
+p_value <- anova.test(cort_table$fold.change, cort_table$treatment, cort_table$fold.change ~ cort_table$treatment + cort_table$time)
