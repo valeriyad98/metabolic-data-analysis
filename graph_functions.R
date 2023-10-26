@@ -4,6 +4,8 @@
 ## Date: 2022-2023                          ###
 ###############################################
 
+# number of unique parameters i.e time, treatment etc
+
 # shapiro wilk test for normality
 normality.sw <- function(norm_vector, p.value = 0.05){
     # Uses norm_vector as input for the Shapiro-Wilk test for normality of data.
