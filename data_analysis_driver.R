@@ -34,16 +34,10 @@ if(!file.exists(file_name)){
 # read data from the file provided and save the data as met_data_table
 met_data_table <- read.csv(file_name)
 
-# example
-met_data_table <- read.csv("data_files/plasma.hormones.csv")
-normality_table <- rec.sw.test(met_data_table, c("time", "analyte", "treatment"), "fold.change")
-stat_table <- automated.stat.test(met_data_table, c("time", "analyte"), "fold.change", "treatment")
+# save tables of normality of data tests and hypothesis testing
+write.csv(rec.sw.test(met_data_table, c("time", "analyte", "treatment"), "fold.change"), "output/normality_of_data.csv")
+write.csv(automated.stat.test(met_data_table, c("time", "analyte"), "fold.change", "treatment"), "output/hypothesis_testing.csv")
 
-# example of linear model for plasma metabolite differences over time in corticosterone
-cort_table <- met_data_table[met_data_table$analyte == "Corticosterone",]
-# another functionality of anova.test allows for a complex linear model present
-p_value <- anova.test(cort_table$fold.change, cort_table$treatment, cort_table$fold.change ~ cort_table$treatment + cort_table$time)
-
-# graphing example
-box_plot(cort_table[cort_table$time == 2,], "treatment", "fold.change", "Treatment", "Fold change", c("control", "trt1", "trt2"), "graphs/new.graph.pdf")
-
+# graphing examples
+box_plot(met_data_table[met_data_table$time == 6 & met_data_table$analyte == "Corticosterone",], "treatment", "fold.change", "Treatment", "Fold change", c("control", "trt1", "trt2"))
+line_graph(met_data_table[met_data_table$analyte == "Leptin",], "time", "conc", "treatment", "Time", "Leptin (ng/ml)", c("control", "trt1", "trt2"))
